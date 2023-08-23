@@ -6,7 +6,7 @@ Please ensure you have the following installed on your local machine;
 + Mongo - version <= 4.4.6
 
 ### Cloning
-You can clone the application by running the following command in your terminal
+You can clone the application by running the following command in your terminal 
 `git clone https://github.com/Phran6ix/coding_challenge.git`
 
 ### Running the application
