@@ -40,4 +40,5 @@ The API returns the following status code
 | 201 | `CREATED` |
 | 400 | `BAD REQUEST` |
 | 404 | `NOT FOUND` |
+| 401 | `UNAUTHORIZED` |
 | 500 | `INTERNAL SERVER ERROR` |
