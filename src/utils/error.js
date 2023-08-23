@@ -14,14 +14,16 @@ const NotFoundError = (message) => new HTTPError(message, 404, "Not Found");
 const InvalidDetailsError = (message) =>
   new HTTPError(message, 400, "Invalid Credentials");
 
-const UnauthorizedError = (message) => {
+const UnauthorizedError = (message) =>
   new HTTPError(message, 401, "Unauthorized");
-};
 
-const OperationFailed = (message) => {
+const OperationFailed = (message) =>
   new HTTPError(message, 400, "Operation failed");
-};
+
+const FieldError = (message) => new HTTPError(message, 400, "Field Error");
+
 module.exports = {
+  FieldError,
   HTTPError,
   NotFoundError,
   InvalidDetailsError,

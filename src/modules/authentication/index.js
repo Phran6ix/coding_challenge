@@ -1,9 +1,17 @@
 const router = require("express").Router();
 const Controller = require("./controller");
-const { protected } = require("../../utils/helper");
+const middleWare = require("../../utils/middleware");
 
-router.post("/auth/register", Controller.HTTPRegisterAUser);
-router.post("/auth/login", Controller.HTTPLoginAUser);
+const validation = require("./validation");
+let protected = middleWare.protecteRoute;
+
+router.post(
+  "/auth/register",
+  validation.registerAUser,
+  Controller.HTTPRegisterAUser
+);
+router.post("/auth/login", validation.log_in_user, Controller.HTTPLoginAUser);
+
 router.patch(
   "/auth/change_password",
   protected,

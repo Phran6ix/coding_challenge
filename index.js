@@ -4,6 +4,7 @@ const morgan = require("morgan");
 require("dotenv").config();
 
 const AuthRouter = require("./src/modules/authentication");
+const DashboardRouter = require("./src/modules/dashboard");
 
 const config = require("./src/utils/config");
 const { globalErrorHandler } = require("./src/utils/helper");
@@ -21,11 +22,14 @@ app.get("/health-check", (req, res, next) => {
     message: "API is live",
   });
 });
+
 app.use(APIversion, AuthRouter);
+app.use(DashboardRouter);
 
 app.use("*", (req, res, next) => {
   next(NotFoundError("Route not found"));
 });
+
 app.use(globalErrorHandler);
 
 const port = config.PORT;

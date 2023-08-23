@@ -23,7 +23,7 @@ const getAUserByUsername = async function ({ username }) {
 
 const getUserById = async function ({ id }) {
   try {
-    const user = await User.findById(id).lean();
+    const user = await User.findById(id);
     if (!user) {
       throw NotFoundError("User not found");
     }

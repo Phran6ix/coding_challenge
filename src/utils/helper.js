@@ -1,10 +1,11 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Joi = require("joi");
 
 const UserRepository = require("../modules/authentication/repository");
 const cnfig = require("./config");
 const constants = require("./constant");
-const { HTTPError, UnauthorizedError } = require("./error");
+const { HTTPError, UnauthorizedError, OperationFailed } = require("./error");
 const config = require("./config");
 
 const globalErrorHandler = function (err, req, res, next) {
@@ -12,6 +13,11 @@ const globalErrorHandler = function (err, req, res, next) {
   if (err.code == 11000) {
     return responseHandler(res, 400, "Username already exists", null);
   }
+
+  if (err instanceof Joi.ValidationError) {
+    return responseHandler(res, 400, err.message, null);
+  }
+
   if (err instanceof HTTPError) {
     res.status(err.statusCode).json({
       status: err.statusCode,
@@ -46,30 +52,6 @@ const verifyJWT = async function (token) {
   return data;
 };
 
-const protected = async function (req, res, next) {
-  try {
-    let token;
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
-    } else {
-      UnauthorizedError("You are not logged in.");
-    }
-
-    let decoded = await verifyJWT(token);
-    console.log(decoded);
-
-    let user = await UserRepository.getUserById({ id: decoded });
-
-    req.user = user;
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
-
 const responseHandler = function (res, status, message, data) {
   return res.status(status).json({
     status,
@@ -79,7 +61,6 @@ const responseHandler = function (res, status, message, data) {
 };
 
 module.exports = {
-  protected,
   responseHandler,
   globalErrorHandler,
   hashPassword,
