@@ -66,7 +66,7 @@ The expected request body should include the username and password. The username
 
 And the expected response to the request body is 
 
-...javascript
+```javascript
 {
     "status": 201,
     "message": "User has been created successfully",
@@ -78,7 +78,44 @@ And the expected response to the request body is
         "updatedAt": "2023-08-23T00:58:36.239Z"
     }
 }
-...
+```
 
 ### /v1/auth/login
-This 
+This endpoints logs a user into the application, a token is returned to the user which grants to the user to access protected route. 
+Data to be expected from the request body is the username and password. 
+
+```javascript
+{
+    "username": "metasix",
+    "password": "123456"
+}
+```
+
+And the expected response to this request body
+
+```javascript
+{
+    "status": 200,
+    "message": "User signed successfully",
+    "data": {
+        "user": {
+            "userId": "64e4bebd471c53d5104142ef",
+            "username": "metasix",
+            "password": "$2a$13$6eKGhSPelpWIZ.QA7fuKEuO4KzZb0JGCkbZe3g4I9HH92GDizmsXK"
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZTRiZWJkNDcxYzUzZDUxMDQxNDJlZiIsImlhdCI6MTY5Mjc0ODY0NiwiZXhwIjoxNjkzMzQ4NjQ2fQ.-0a2eJMk1iwDVQlIHsIsdyVPwf6_htat1DvEKbWcTuQ"
+    }
+}
+```
+
+### /dashboard
+This is a protected endpoint in the application,. The only to access this route is to be logged in and set the authorization header to the token
+The expected response to this endpoint 
+
+```javascript
+{
+    "status": 200,
+    "message": "Welcome to your dashboard metasix",
+    "data": null
+}
+```
