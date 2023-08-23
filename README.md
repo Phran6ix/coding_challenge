@@ -47,22 +47,22 @@ The API returns the following status code
 ## API ENDPOINTS
 ### /v1/auth/register
 This endpoint creates a user on the application, and before the user is created, there is a check for an existing user with the username, if a user witht the user name exists, an error is thrown. 
-...javascript
+```javascript
 {
     "status": 400,
     "message": "Username already exists",
     "data": null
 }
-...
+```
 
 The expected request body should include the username and password. The username is unique - more than one account cannot have the same username, and the password should be at least 6 alphanumeric characters. 
 
-...javascript
+```javascript
 {
     "username": "metasix",
     "password": "123467"
 }
-...
+```
 
 And the expected response to the request body is 
 
