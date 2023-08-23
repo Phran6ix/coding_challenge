@@ -13,6 +13,7 @@ module.exports = {
 
     const { error } = sign_up_schema.validate(req.body);
     if (error) throw error;
+    next();
   },
 
   log_in_user: (req, res, next) => {
