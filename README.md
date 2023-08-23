@@ -18,4 +18,26 @@ To start the application,
 + To start the application, run the command
   
     `npm start`
-  
+
+### API Response 
+The API response is a JSON data type, which include the status code, a message and a data property
+
+
+```javascript
+{
+  "message" : string,
+  "success" : bool,
+  "data"    : string
+}
+```
+
+The API returns the following status code
+
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
+| 201 | `CREATED` |
+| 400 | `BAD REQUEST` |
+| 404 | `NOT FOUND` |
+| 500 | `INTERNAL SERVER ERROR` |
